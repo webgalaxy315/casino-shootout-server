@@ -15,9 +15,6 @@ module.exports = {
                 token: token,
                 betAmount: bet_Amount
             }
-            console.log("token=>>>", users[token].token);
-            console.log("betAmount=>>>", users[token].betAmount);
-            console.log(process.env.PLATFORM_SERVER);
             try {
                 await axios.post(process.env.PLATFORM_SERVER + "api/games/bet", {
                     token: users[token].token,
@@ -62,8 +59,6 @@ module.exports = {
             try {
                 let ball_number = await rand.intBetween(0, 4);
                 let keeper_number = await rand.intBetween(0, 4);
-                console.log(ball_number, keeper_number);
-
                 res.json({
                     ball_number: ball_number,
                     keeper_number: keeper_number,
