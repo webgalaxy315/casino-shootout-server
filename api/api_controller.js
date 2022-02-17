@@ -2,6 +2,21 @@ const axios = require("axios");
 const rand = require("random-seed").create();
 require("dotenv").config();
 
+const getArray = (num) => {
+    let array = [];
+    array.push(num);
+    for (var i = 0; i < 1;) {
+        let number = rand.intBetween(0, 4);
+        if (array.indexOf(number) != -1) {
+            continue;
+        }
+        array.push(number);
+        i++;
+    }
+    let number = array[rand.intBetween(0, 1)];
+    return number;
+}
+
 module.exports = {
     Play: async (req, res) => {
         try {
@@ -37,8 +52,10 @@ module.exports = {
     },
     ball: async (req, res) => {
         try {
+            const { num } = req.body;
+            const ball_number = parseInt(num);
             try {
-                let keeper_number = await rand.intBetween(0, 4);
+                let keeper_number = await getArray(ball_number);
                 res.json({
                     keeper_number: keeper_number,
                     Message: "SUCCESS!"
@@ -58,7 +75,8 @@ module.exports = {
         try {
             try {
                 let ball_number = await rand.intBetween(0, 4);
-                let keeper_number = await rand.intBetween(0, 4);
+                let keeper_number = await getArray(ball_number);
+
                 res.json({
                     ball_number: ball_number,
                     keeper_number: keeper_number,
